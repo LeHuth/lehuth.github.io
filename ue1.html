@@ -1,0 +1,409 @@
+<html>
+<head>
+    <title></title>
+    <link href="format.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        <!--
+        a:link {
+            font-family: Arial;
+            font-size: 10pt;
+            text-decoration: none;
+        }
+
+        a:visited {
+            font-family: Arial;
+            font-size: 10pt;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #FF3333;
+            text-decoration: none;
+            font-weight: normal;
+            font-size: 10pt;
+        }
+
+        .underscore {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<iframe frameborder="0" height="120" id="IFrame3" name="IFrame3" scrolling="no" src="oben.html" width="800">
+    <p>Ihr Browser kann leider keine eingebe5tteten Frames anzeigen:Sie k&ouml;nnen die eingebettete Seite &uuml;ber den
+        folgenden.</p>
+</iframe>
+
+<h2>Uebung 1</h2>
+<br>
+<h3>Aufgabe 1 - 1.1</h3>
+<p class="underscore">Bescheibung</p>
+<p> Schneide aus den dir zugeschickten Audio-Files ab dem Zeitpunkt jeweils ein Stück mit der Länge 5
+    Sekunden und speichere dieses als WAV-Datei ab. Parameter für Musik: fa=44,1 kHz, stereo, für
+    Sprache: fa=8 kHz mono, beide 16 bit Auflösung. Beim Schneiden achtest du darauf, dass der
+    Schnitt am Beginn einer musikalischen Figur bzw. eines Satzes liegt.
+</p>
+
+<p class="underscore">Loesung</p>
+<audio controls>
+    <source src="./audio/Musik_UEG14.wav" type="audio/wav">
+</audio>
+<audio controls>
+    <source src="./audio/Sprache_UEG14.wav" type="audio/wav">
+</audio>
+
+
+<hr>
+<h3>Aufgabe 1 - 1.2</h3>
+<p class="underscore">Bescheibung</p>
+<p>Erkläre, warum die Audio-Files unterschiedliche Abtastfrequenzen haben.</p>
+<p class="underscore">Loesung</p>
+<p>
+    Die unterschiedlichen Abtastfrequenzen der Audio-Dateien können durch das Nyquist-Shannon-Abtasttheorem erklärt
+    werden, das besagt, dass die Abtastfrequenz mindestens das Doppelte der höchsten Frequenz des Signals sein muss. Bei
+    Sprachaufnahmen, deren Frequenzen hauptsächlich im unteren Bereich liegen (zwischen 300 Hz und 5 kHz), ist eine
+    Abtastfrequenz von 8 kHz ausreichend. In Bezug auf allgemeine Audioaufnahmen, die den gesamten Hörbereich des
+    Menschen (bis zu 20 kHz) abdecken sollen, ist eine Abtastfrequenz von 44,1 kHz notwendig. Dieser Standard bietet
+    auch zusätzlichen Raum für die Filterung des Signals, falls erforderlich.
+</p>
+<hr>
+<h3>Aufgabe 1 - 1.3</h3>
+<p>Bescheibung</p>
+<p>Lies die Musik- und die Sprachdatei mit wave_io ein und erkläre die Angaben im Header!</p>
+<p>Loesung</p>
+<div>
+    <img height="200px" src="pics/sprache_header.png">
+    <img height="200px" src="pics/musik_header.png">
+</div>
+
+<p>
+    <i>Channel:</i><br>
+    Der Channel gibt an, wie viele Kanäle übertragen werden. Hier kann man zwischen Mono (1 Kanal) und Stereo (2 Kanäle)
+    unterscheiden. Bei z.B. Surround-Sound können auch mehr Kanäle verwendet werden.
+</p>
+<p>
+    <i>Frames:</i><br>
+    Die Frames entsprechen der Abtastfrequenz multipliziert mit der Dauer der Audio-Datei in Sekunden und stellen damit
+    die Abtastzeitpunkte über die gesamte Audio-Datei hinweg dar. Jeder Frame enthält eine Information über die
+    Amplitude zum jeweiligen Zeitpunkt in der Audio-Datei.
+</p>
+<p>
+    <i>Sample Rate:</i><br>
+    Die Sample Rate ist die Abtastfrequenz, die angibt, wie häufig eine Datei pro Sekunde abgetastet wird. Sie
+    diskretisiert damit die Zeitachse.
+</p>
+<p>
+    <i>Valid Bits:</i><br>
+    Die Valid Bits geben die Ausnutzung der bytes per sample an.
+</p>
+<p>
+    <i>Bytes per sample:</i><br>
+    Die bytes per sample beschreiben die Anzahl der Bytes, die zum Speichern eines Samples verwendet werden. Sie
+    diskretisieren damit die Höhe der Amplitude.
+</p>
+<hr>
+<h3>Aufgabe 1 - 1.4</h3>
+<p class="underscore">Bescheibung</p>
+<p>Berechne die Bitrate für die beiden Dateien! </p>
+<p class="underscore">Loesung</p>
+<p>
+    Formel für Datenrate
+</p>
+<p>
+    Bitrate = Abtastfrequenz * Bitauflösung * Kanäle<br><br>
+    oder auch: <br><br>
+
+    rate = fa * N * K <br>
+    fa : Abtastfrequenz in Hz<br>
+    N: Auflösung in bit <br>
+    K: Anzahl Kanäle <br>
+</p>
+<div style="background: antiquewhite; width: fit-content">
+    <p>Musik_UEG14.wav</p>
+    <p>
+        Bitrate = 44100 * 16 * 2 = 1411200 bit/s = 1411,2 kbit/s
+    </p>
+</div>
+<div style="background: antiquewhite; width: fit-content;">
+    <p>Sprache_UEG14.wav</p>
+    <p>
+        Bitrate = 8000 * 16 * 1 = 128000 bit/s = 128 kbit/s
+    </p>
+</div>
+
+<hr>
+<h3>Aufgabe 2 - 2.1</h3>
+
+<p class="underscore">Bescheibung</p>
+<p>
+    Modifiziere wave_io dahingehend, dass die Samples in der WAV-Datei in eine (lesbare) ASCII-
+    Datei geschrieben werden. Lies die von mir geschickten Sinusdateien (Sampling-Frequenz: 16 kHz)
+    ein und bestimme aus den resultierenden Zahlenfolgen in der ASCII-Datei die Frequenz der Sinus-
+    Schwingungen. Begründe!
+</p>
+<p class="underscore">Loesung</p>
+<div>
+    <img height="500" src="pics/sine_lo_values.png" title="sine_lo01">
+</div>
+<p>
+    Der Output-Ausschnitt der sine_lo01.wav-Datei zeigt eine Abtastfrequenz von ungefähr 11 Abtastpunkten pro
+    Sinusperiode. Die Berechnung ergibt sich demnach wie folgt: Frequenz: 16 kHz / 11 = 1.45 kHz Daraus ergibt sich eine
+    Frequenz von 1.45 kHz.
+</p>
+
+<div>
+    <img height="500" src="pics/sine_hi_values.png" title="sine_lo01">
+</div>
+<p>
+    Der Output-Ausschnitt der sine_hi03.wav-Datei zeigt eine Abtastfrequenz zwischen 2 und 3 Abtastpunkten pro
+    Sinusperiode. Nehmen wir 2,5 Die Berechnung ergibt sich demnach wie folgt: Frequenz: 16 kHz / 2.5 = 5.5 kHz Daraus
+    ergibt sich eine
+    Frequenz von 5.5 kHz.
+</p>
+
+<h3>Aufgabe 2 - 2.2</h3>
+<p class="underscore">Beschreibung</p>
+<p>Überprüfe deine Schätzung mit dem Spektralanalyse-Tool GRAM. (Vorgehensweise: Menüpunkt Analyze File, Einstellungen:
+    Freq Scale: Linear, FFT Size: 512, Time scale: 1 msec)</p>
+<p>Loesung</p>
+<div>
+    <img height="500" src="pics/sinelo.PNG">
+    <img height="500" src="pics/sinehi.PNG">
+</div>
+<p>
+    Die GRAM-Auswertungen der Dateien zeigen das die Berechnungen aus 2.1 korrekt sind. Wie zu erwarten ist die frequenz
+    der sine_hi03 etwas abweichend da wir mit einem mittelwert gerechnet haben.
+</p>
+<br>
+<h3>Aufgabe 2 - 2.3</h3>
+<p>Beschreibung</p>
+<p>
+    Bei der zeitlichen Diskretisierung eines Analogsignals muss das sogenannte Abtasttheorem eingehalten werden. Wie
+    lautet es und wie lässt sich der Grenzfall, für den es gerade noch gilt, illustrieren? Erstelle hierzu eine
+    Zeichnung und erläutere.
+</p>
+<p>Loesung</p>
+<p>
+    Theorem besagt, dass die Abtastfrequenz mindestens doppelt so hoch sein sollte wie die höchste Frequenz, die im
+    Signal erfasst werden soll.<br>
+    Die Formel, um das die notwendige Abtastfrequenz zu berechnen lautet: fa > 2 * fmax, wobei fa die Abtastfrequenz und
+    fmax die höchste im Audiosignal enthaltene Frequenz beschreibt.
+</p>
+<img height="500" src="pics/theorem.png">
+<p>Die roten Kreuze beschreiben die minimal notwendigen Abtastpunkte die benoettigt werden damit die Frequenz des
+    Originals noch rekonstruiert werden kann.</p>
+
+<h3>Aufgabe 2 - 2.4</h3>
+<p>Beschreibung</p>
+<p>Bei herkömmlichen Soundkarten tritt systembedingt kein Aliasing auf, weil das Audiosignal stets geeignet vorbehandelt
+    wird. Wie sieht diese Vorbehandlung aus?</p>
+<p>Loesung</p>
+<p>
+    Die Vorbehandlung besteht aus einem Tiefpassfilter, der das Signal vor der Abtastung filtert. Dadurch werden alle
+    Frequenzen oberhalb der halben Abtastfrequenz herausgefiltert.</p>
+
+<h3>Aufgabe 2 - 2.5</h3>
+<p>Beschreibung</p>
+<p>Modifiziere wave_io dahingehend, dass vom eingelesenen Audiosignal jeder zweite Abtastwert verworfen wird und das
+    resultierende Signal abgespeichert wird. Der Header muss natürlich entsprechend verändert werden!</p>
+<p>Loesung</p>
+<pre style="background: antiquewhite; width:fit-content">
+<code>
+    // 2e Downsampling
+    for (int i=0; i < samples/2;i++) {
+        readWavFile.sound[i] = readWavFile.sound[i * 2];
+    }
+    sampleRate = sampleRate / 2;
+    numFrames = numFrames / 2;
+    WavFile.write_wav(outFilename, numChannels, numFrames, validBits, sampleRate, readWavFile.sound);
+</code>
+</pre>
+<hr>
+<h3>Aufgabe 2 - 2.6</h3>
+<p>Beschreibung</p>
+<p>Wende das erstellte Programm auf die von mir geschickten Sinusdateien an (sine_hiXX.wav und sine_loXX.wav) an. Welche
+    Frequenzen erscheinen nach dem Down-Sampling? Was würde passieren, wenn man geeignet bandbegrenzen würde?</p>
+<p>Loesung</p>
+<p>sine_lo01_down.wav</p>
+<audio controls>
+    <source id="sine_lo01_down" src="./audio/sine_lo01_down.wav" type="audio/wav">
+</audio>
+<p>sine_hi03_down.wav</p>
+<audio controls>
+    <source id="sine_hi03_down" src="./audio/sine_hi03_down.wav" type="audio/wav">
+</audio>
+<br>
+<img src="pics/sinehidown.PNG">
+<img src="pics/sinelowdown.PNG">
+<p>
+    Die Frequenz der sine_hi03.wav-Datei betrug vor dem Down-Sampling 6 kHz und danach nur noch 2 kHz. Bei der
+    sine_lo01.wav-Datei bleibt auch nach dem Downsampling die Frequenz von 1.45 kHz erhalten. Bei einer geeigneten
+    Bandbegrenzung wäre nach dem Downsampling bei der sine_hi06.wav-Datei kein Ton mehr zu hören , weil alle Frequenzen
+    oberhalb von 4 kHz durch einen Tiefpassfilter abgeschnitten werden würden.
+</p>
+
+<h3>Aufgabe 3 - 3.1</h3>
+<p>Beschreibung</p>
+<p>Die herkömmlichen PC-Soundkarten arbeiten meist entweder mit 16 oder 8 bit-Auflösung. Wie groß ist die Anzahl bei
+    diesen beiden Werten darstellbaren Amplitudenwerten?</p>
+
+<p>Loesung</p>
+<p>Um festzustellen, wie viele verschiedene Amplitudenwerte dargestellt werden können, wird berechnet, wie viele
+    Optionen für 16 bzw. 8 Bit zur Verfügung stehen. Durch die Berechnung von 2^16 = 65.536 und 2^8 = 256 ergeben sich
+    65.536 Optionen für 16 Bit und 256 Optionen für 8 Bit, die jeweils die Anzahl der möglichen Amplitudenwerte
+    darstellen.</p>
+
+<h3>Aufgabe 3 - 3.2</h3>
+<p>Beschreibung</p>
+<p>Modifiziere wave_io dahingehend, dass die Bitanzahl reduziert wird. Dazu werden alle Samples durch eine Potenz von 2
+    geteilt (Integer-Division ohne Rest). Damit das resultierende Signal nicht leiser wird als das Original, wird die
+    Operation durch Multiplikation mit derselben 2er Potenz kompensiert. Zu beachten: Der Datentyp hat nach wie vor 16
+    bit!</p>
+
+<p>Loesung</p>
+<pre style="background: antiquewhite; width:fit-content">
+    <code>
+    // 3b Bitreduzierung
+	int reduced_bits = 1;
+	for (int i=0; i < samples;i++) {
+		int pot = (int) Math.pow(2, reduced_bits);
+		readWavFile.sound[i] = (short) (readWavFile.sound[i]/pot*pot);
+	}
+	WavFile.write_wav(outFilename, numChannels, numFrames, validBits, sampleRate, readWavFile.sound);
+    </code>
+</pre>
+
+<h3>Aufgabe 3 - 3.3</h3>
+<p>Beschreibung</p>
+<p>Mit dem entstandenen Programm sollen nun die in Aufgabe 1 erzeugten Wave-Dateien (Sprache und Musik) bitreduziert
+    werden. Ab welcher Bitanzahl tritt eine hörbare, also deutliche Verschlechterung der Qualität ein? Bei wie viel Bit
+    ist das Sprachsignal noch verständlich?</p>
+
+<p>Loesung</p>
+<p>Eine Verringerung der Bitrate um 10 Bits führt zwar zu einer erkennbaren, aber bereits deutlich schlechteren
+    Signalqualität. Bei einer Reduktion um 12 Bits wird das Signal jedoch so stark beeinträchtigt, dass Musik und
+    Sprache nicht mehr verständlich sind.</p>
+<p>Dateien</p>
+<p>um 10 bit reduziert:</p>
+<div style=" background: antiquewhite; display: inline-block; margin-right: 40px">
+    <p>Sprachdatei nach einer Reduzierung um 10 bit</p>
+    <audio controls>
+        <source src="./audio/Sprache_UEG14_reduc_10.wav" type="audio/wav">
+    </audio>
+</div>
+<div style="background: antiquewhite; display: inline-block">
+    <p>Musikdatei nach einer Reduzierung um 10 bit</p>
+    <audio controls>
+        <source src="./audio/Musik_UEG14_reduc_10.wav" type="audio/wav">
+    </audio>
+</div>
+<p>um 12 bit reduziert:</p>
+<div style=" background: antiquewhite; display: inline-block; margin-right: 40px">
+    <p>Sprachdatei nach einer Reduzierung um 12 bit</p>
+    <audio controls>
+        <source src="./audio/Sprache_UEG14_reduc_12.wav" type="audio/wav">
+    </audio>
+</div>
+<div style="background: antiquewhite; display: inline-block">
+    <p>Musikdatei nach einer Reduzierung um 12 bit</p>
+    <audio controls>
+        <source src="./audio/Musik_UEG14_reduc_12.wav" type="audio/wav">
+    </audio>
+</div>
+
+<h3>Aufgabe 3 - 3.4</h3>
+<p>Beschreibung</p>
+<p>Was charakterisiert das entstehende Quantisierungsgeräusch bei der Bitreduzierung und macht es besonders störend?</p>
+
+<p>Loesung</p>
+<p>
+    Das Quantisierungsgeräusch entsteht durch die Bitreduzierung, da die Amplitudenwerte der Samples nicht mehr so
+    genau dargestellt werden können. Das Quantisierungsgeräusch ist besonders störend, da es sich um ein Rauschen
+    handelt, das sich über das gesamte Frequenzspektrum erstreckt und somit nicht einfach durch einen Tiefpassfilter
+    entfernt werden kann.
+</p>
+
+<h3>Aufgabe 3 - 3.5</h3>
+<p>Beschreibung</p>
+<p>Modifiziere dein Programm noch einmal so, dass auch das Differenzsignal zwischen Original und bitreduziertem Signal,
+    d.h. der Quantisierungsfehler ausgegeben werden kann.</p>
+
+<p>Loesung</p>
+<pre style="background: antiquewhite; width:fit-content">
+    <code>
+    // 3e Bitreduzierung Differenz
+    int reduced_bits = 1;
+    for (int i=0; i < samples;i++) {
+        short temp = readWavFile.sound[i];
+        int pot = (int) Math.pow(2, reduced_bits);
+        readWavFile.sound[i] = (short) (readWavFile.sound[i]/pot*pot);
+        diff[i] = (short) ((temp - readWavFile.sound[i]) * Math.pow(2, 16-reduced_bits-1));
+    }
+   WavFile.write_wav(outFilename, numChannels, numFrames, validBits, sampleRate, diff);
+    </code>
+</pre>
+
+<p>Dateien</p>
+<p>Quantisierungsfehler bei Bit-Reduzierung um 1 Bit:</p>
+<div style=" background: antiquewhite; display: inline-block; margin-right: 40px">
+    <p>Quantisierungsfehler der Sprachdatei nach einer Reduzierung um 1 bit</p>
+    <audio controls>
+        <source src="./audio/Sprache_UEG14_diff_1.wav" type="audio/wav">
+    </audio>
+</div>
+<div style="background: antiquewhite; display: inline-block">
+    <p>Quantisierungsfehler der Musikdatei nach einer Reduzierung um 1 bit</p>
+    <audio controls>
+        <source src="./audio/Musik_UEG14_diff_1.wav" type="audio/wav">
+    </audio>
+</div>
+
+<p>Quantisierungsfehler bei Bit-Reduzierung um 10 Bit:</p>
+<div style=" background: antiquewhite; display: inline-block; margin-right: 40px">
+    <p>Quantisierungsfehler der Sprachdatei nach einer Reduzierung um 10 bit</p>
+    <audio controls>
+        <source src="./audio/Sprache_UEG14_diff_10.wav" type="audio/wav">
+    </audio>
+</div>
+<div style="background: antiquewhite; display: inline-block">
+    <p>Quantisierungsfehler der Musikdatei nach einer Reduzierung um 10 bit</p>
+    <audio controls>
+        <source src="./audio/Musik_UEG14_diff_10.wav" type="audio/wav">
+    </audio>
+</div>
+
+<h3>Aufgabe 3 - 3.6</h3>
+<p>Beschreibung</p>
+<p>Welchen Charakter hat das Rauschen bei einer Reduktion um 1bit und wie verändert es sich bei zunehmender
+    Bit-Reduktion?</p>
+
+<p>Loesung</p>
+<p>
+    Wenn die Bitrate um 1 Bit verringert wird, ist das Rauschen immer noch dominant, aber bei zunehmender Reduktion der
+    Bitrate wird die Musik oder die Stimme im Rauschen immer deutlicher wahrnehmbar.</p>
+
+<h3> GRAM Gallerie</h3>
+
+<p>Originale Dateien</p>
+<img height="400" src="pics/music_og.PNG">
+<img height="400" src="pics/speech_og.PNG">
+
+<p>Bitreduzierte um 10 Bit</p>
+<img height="400" src="pics/music_reduc_10.PNG">
+<img height="400" src="pics/speech_reduc_10.PNG">
+
+<p>Bitreduzierte um 12 Bit</p>
+<img height="400" src="pics/music_reduc_12.PNG">
+<img height="400" src="pics/speech_reduc_12.PNG">
+
+<p>Quantisierungsfehler bei Bit-Reduzierung um 1 Bit</p>
+<img height="400" src="pics/music_diff_1.PNG">
+<img height="400" src="pics/speech_diff_1.PNG">
+
+<p>Quantisierungsfehler bei Bit-Reduzierung um 10 Bit</p>
+<img height="400" src="pics/music_diff_10.PNG">
+<img height="400" src="pics/speech_diff_10.PNG">
+</body>
+</html>
